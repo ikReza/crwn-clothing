@@ -5,15 +5,37 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  // top (right-left) bottom
   margin: 0 7.5px 15px;
+  // flex-grow flex-shrink flex-basis
   flex: 1 1 auto;
+  overflow: hidden;
 
-  &:first-child {
-    margin-right: 7.5px;
+  //hover effects
+  &:hover {
+    cursor: pointer;
+
+    & .background-img {
+      transform: scale(1.1);
+      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+      // cubic bezier doc: https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function
+    }
+
+    & .content {
+      opacity: 0.9;
+    }
   }
 
-  &:last-child {
-    margin-left: 7.5px;
+  &.large {
+    height: 380px;
+  }
+
+  .background-img {
+    height: 100%;
+    width: 100%;
+    // background-image (position - center & cover the whole thing)
+    background-position: center;
+    background-size: cover;
   }
 
   .content {
@@ -24,10 +46,15 @@
     justify-content: center;
     height: 90px;
     padding: 5px 25px;
+
+    background-color: white;
+    opacity: 0.7;
+    position: absolute;
   }
 
   .title {
     font-weight: bold;
+    text-transform: uppercase;
     margin-bottom: 6px;
     font-size: 22px;
     color: #4a4a4a;
