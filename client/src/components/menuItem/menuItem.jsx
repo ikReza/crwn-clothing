@@ -2,8 +2,9 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 // withRouter is a higher-order component. A higher order component is essentially a function that takes any component
 // as an argument and returns a modified component.
+// https://reactjs.org/docs/higher-order-components.html
 
-import "./menuItem.styles.scss";
+import "./menuItem.scss";
 
 const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }) => {
   return (

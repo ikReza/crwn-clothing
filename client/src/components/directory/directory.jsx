@@ -1,6 +1,6 @@
 import React from "react";
-import "./directory.styles.scss";
-import MenuItem from "../menuItem/menuItem.component";
+import "./directory.scss";
+import MenuItem from "../menuItem/menuItem";
 
 const sections = [
   {
