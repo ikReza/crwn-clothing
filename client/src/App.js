@@ -7,7 +7,7 @@ import Header from "./components/header/header";
 import SignIn from "./components/signIn-and-signUp/signIn";
 import SignUp from "./components/signIn-and-signUp/signUp";
 
-import { auth } from "./firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import "./App.css";
 
 const App = () => {
@@ -16,15 +16,27 @@ const App = () => {
   useEffect(() => {
     let unSubscribeFromAuth = null;
 
-    unSubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      console.log(user);
+    unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot((snapShot) => {
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data(),
+          });
+        });
+      }
+
+      setCurrentUser(userAuth);
     });
 
     return () => {
       unSubscribeFromAuth();
     };
   }, []);
+
+  console.log(currentUser);
 
   return (
     <div>
