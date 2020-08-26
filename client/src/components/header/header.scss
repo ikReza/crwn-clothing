@@ -1,0 +1,30 @@
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  @include flexCenter();
+  justify-content: space-between;
+  height: 9vh;
+  width: 100%;
+  margin-bottom: 4vh;
+
+  .logo-container {
+    height: 100%;
+    width: 70px;
+    padding: 25px;
+    @include flexCenter();
+  }
+
+  .options {
+    width: 50%;
+    @include flexCenter();
+    justify-content: flex-end;
+
+    .option {
+      padding: 10px 15px;
+    }
+  }
+}
