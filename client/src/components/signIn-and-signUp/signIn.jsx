@@ -20,7 +20,7 @@ const SignIn = () => {
 
   return (
     <Grid container justify="center" className="sign-in">
-      <Grid item xs={10} sm={6} md={4}>
+      <Grid item xs={12} sm={6} md={4}>
         <form onSubmit={handleSubmit}>
           <Typography
             align="center"
@@ -63,7 +63,7 @@ const SignIn = () => {
           </CustomButton>
           <div className="sign-up">
             <Typography className="sign-up-header">
-              Don't have an account?{" "}
+              Don't have an account?
             </Typography>
             <CustomButton variant="outlined" component={Link} to="/signup">
               Sign Up
