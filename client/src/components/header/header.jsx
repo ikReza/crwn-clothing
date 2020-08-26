@@ -7,8 +7,9 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 // Read more about this React library special syntax here: https://facebook.github.io/create-react-app/docs/adding-images-fonts-and-files
 
 import "./header.scss";
+import { auth } from "../../firebase/firebase.utils";
 
-const Header = () => {
+const Header = ({ currentUser }) => {
   return (
     <div className="header">
       <Link to="/" className="logo-container">
@@ -21,6 +22,15 @@ const Header = () => {
         <Link className="option" to="/shop">
           CONTACT
         </Link>
+        {currentUser ? (
+          <div className="option" onClick={() => auth.signOut()}>
+            SIGN OUT
+          </div>
+        ) : (
+          <Link className="option" to="/signin">
+            sign in
+          </Link>
+        )}
       </div>
     </div>
   );

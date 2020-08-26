@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Grid, Typography, TextField } from "@material-ui/core";
+import { Link } from "react-router-dom";
+
+import CustomButton from "../customButton/customButton";
+import { signInWithGoogle } from "../../firebase/firebase.utils";
 
 import "./signIn.scss";
-import CustomButton from "../customButton/customButton";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -50,6 +53,22 @@ const SignIn = () => {
           <CustomButton variant="outlined" fullWidth type="submit">
             Sign In
           </CustomButton>
+          <CustomButton
+            variant="outlined"
+            fullWidth
+            onClick={signInWithGoogle}
+            isGoogleSignIn
+          >
+            Sign In with Google
+          </CustomButton>
+          <div className="sign-up">
+            <Typography className="sign-up-header">
+              Don't have an account?{" "}
+            </Typography>
+            <CustomButton variant="outlined" component={Link} to="/signup">
+              Sign Up
+            </CustomButton>
+          </div>
         </form>
       </Grid>
     </Grid>
