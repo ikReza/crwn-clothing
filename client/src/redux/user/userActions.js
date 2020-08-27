@@ -1,6 +1,8 @@
+import * as actions from "./userConstants";
+
 export const setCurrentUser = (user) => async (dispatch) => {
   dispatch({
-    type: "SET_CURRENT_USER",
+    type: actions.SET_CURRENT_USER,
     payload: user,
   });
 };
