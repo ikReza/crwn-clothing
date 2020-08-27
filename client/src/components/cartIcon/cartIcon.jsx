@@ -1,56 +1,43 @@
 import React, { useState } from "react";
 import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
-import { Popover, Typography } from "@material-ui/core";
+import { ClickAwayListener } from "@material-ui/core";
+import { useSelector } from "react-redux";
 
 import "./cartIcon.scss";
 import CustomButton from "../customButton/customButton";
+import CartItem from "../cart/cartItem";
 
 const CartIcon = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = () => {
+    setOpen((prev) => !prev);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClickAway = () => {
+    setOpen(false);
   };
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const cartItems = useSelector((state) => state.cart.cartItems);
 
   return (
-    <div>
-      <div onClick={handleClick} className="cart-icon">
-        <ShoppingIcon className="shopping-icon" />
-        <span className="item-count">0</span>
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <div className="root">
+        <div onClick={handleClick} className="cart-icon">
+          <ShoppingIcon className="shopping-icon" />
+          <span className="item-count">0</span>
+        </div>
+        {open ? (
+          <div className="dropdown">
+            <div className="cart-items">
+              {cartItems.map((item) => (
+                <CartItem key={item.id} item={item} />
+              ))}
+            </div>
+            <CustomButton fullWidth>Go to checkout</CustomButton>
+          </div>
+        ) : null}
       </div>
-      <Popover
-        id={id}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-        className="popover"
-      >
-        <div className="cart-items">
-          <Typography>Menu-1</Typography>
-          <Typography>Menu-1</Typography>
-          <Typography>Menu-1</Typography>
-          <Typography>Menu-1</Typography>
-        </div>
-        <div className="checkout-btn">
-          <CustomButton fullWidth>Go to checkout</CustomButton>
-        </div>
-      </Popover>
-    </div>
+    </ClickAwayListener>
   );
 };
 

@@ -1,0 +1,28 @@
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-item {
+  width: 100%;
+  @include flexCenter();
+  height: 80px;
+  margin-bottom: 15px;
+
+  img {
+    width: 30%;
+  }
+
+  .item-details {
+    width: 70%;
+    @include flexCenter();
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+
+    .name {
+      font-size: 16px;
+    }
+  }
+}

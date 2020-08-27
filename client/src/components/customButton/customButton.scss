@@ -3,6 +3,7 @@
   letter-spacing: 2px;
   background-color: black !important;
   color: white !important;
+  border: 1px solid black !important;
   margin-top: 1vh !important;
 
   &:hover {
@@ -12,9 +13,20 @@
 
   &.google-sign-in {
     background-color: #4285f4 !important;
+    border: none !important;
 
     &:hover {
       background-color: #357ae8 !important;
+      color: white !important;
+    }
+  }
+
+  &.inverted {
+    background-color: white !important;
+    color: black !important;
+
+    &:hover {
+      background-color: black !important;
       color: white !important;
     }
   }
