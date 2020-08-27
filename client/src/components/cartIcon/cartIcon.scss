@@ -1,10 +1,14 @@
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .cart-icon {
   height: 45px;
   width: 45px;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flexCenter();
   cursor: pointer;
 
   .shopping-icon {
@@ -17,5 +21,21 @@
     font-size: 10px;
     font-weight: bold;
     bottom: 12px;
+  }
+}
+
+.popover {
+  @include flexCenter();
+  flex-direction: column;
+
+  .cart-items {
+    height: 30vh;
+    overflow-y: scroll;
+    @include flexCenter();
+    flex-direction: column;
+  }
+
+  .checkout-btn {
+    margin-top: auto;
   }
 }
