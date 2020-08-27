@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 // This is a new special syntax when importing SVG in React.
@@ -9,7 +10,10 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 import "./header.scss";
 import { auth } from "../../firebase/firebase.utils";
 
-const Header = ({ currentUser }) => {
+const Header = () => {
+  const user = useSelector((state) => state.user);
+  const { currentUser } = user;
+
   return (
     <div className="header">
       <Link to="/" className="logo-container">

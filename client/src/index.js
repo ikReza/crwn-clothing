@@ -4,8 +4,10 @@ import App from "./App";
 
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import store from "./redux/store";
 
 const THEME = createMuiTheme({
   typography: {
@@ -15,9 +17,11 @@ const THEME = createMuiTheme({
 
 ReactDOM.render(
   <MuiThemeProvider theme={THEME}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </MuiThemeProvider>,
   document.getElementById("root")
 );
