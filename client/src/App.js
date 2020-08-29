@@ -13,6 +13,7 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { selectCurrentUser } from "./redux/user/user.selector";
 
 import "./App.css";
+import CheckoutPage from "./pages/checkout/checkout";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -61,6 +62,7 @@ const App = () => {
           path="/signup"
           render={() => (currentUser ? <Redirect to="/" /> : <SignUp />)}
         />
+        <Route exact path="/checkout" component={CheckoutPage} />
       </Switch>
     </div>
   );

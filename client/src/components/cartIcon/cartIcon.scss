@@ -45,6 +45,13 @@
       @include flexCenter();
       justify-content: flex-start;
       flex-direction: column;
+
+      .empty-cart {
+        height: 30vh;
+        @include flexCenter();
+        font-weight: bolder;
+        font-size: large;
+      }
     }
 
     button {

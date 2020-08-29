@@ -1,0 +1,40 @@
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkout-item {
+  width: 100%;
+  min-height: 15vh;
+  border-bottom: 1px solid darkgrey;
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+
+  .image-container {
+    width: 23%;
+    padding-right: 15px;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .name,
+  .quantity,
+  .price {
+    width: 23%;
+  }
+
+  .quantity {
+    padding-left: 20px;
+  }
+
+  .remove {
+    width: 8%;
+    @include flexCenter();
+  }
+}
