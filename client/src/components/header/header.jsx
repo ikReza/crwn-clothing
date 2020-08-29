@@ -10,10 +10,10 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 import "./header.scss";
 import { auth } from "../../firebase/firebase.utils";
 import CartIcon from "../cartIcon/cartIcon";
+import { selectCurrentUser } from "../../redux/user/user.selector";
 
 const Header = () => {
-  const user = useSelector((state) => state.user);
-  const { currentUser } = user;
+  const currentUser = useSelector(selectCurrentUser);
 
   return (
     <div className="header">

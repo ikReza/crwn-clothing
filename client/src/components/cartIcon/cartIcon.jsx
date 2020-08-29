@@ -6,6 +6,10 @@ import { useSelector } from "react-redux";
 import "./cartIcon.scss";
 import CustomButton from "../customButton/customButton";
 import CartItem from "../cart/cartItem";
+import {
+  selectCartItems,
+  selectCartItemsCount,
+} from "../../redux/cart/cart.selector";
 
 const CartIcon = () => {
   const [open, setOpen] = useState(false);
@@ -17,14 +21,16 @@ const CartIcon = () => {
   const handleClickAway = () => {
     setOpen(false);
   };
-  const cartItems = useSelector((state) => state.cart.cartItems);
+
+  const cartItems = useSelector(selectCartItems);
+  const itemCount = useSelector(selectCartItemsCount);
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <div className="root">
         <div onClick={handleClick} className="cart-icon">
           <ShoppingIcon className="shopping-icon" />
-          <span className="item-count">0</span>
+          <span className="item-count">{itemCount}</span>
         </div>
         {open ? (
           <div className="dropdown">
@@ -41,4 +47,4 @@ const CartIcon = () => {
   );
 };
 
-export default CartIcon;
+export default React.memo(CartIcon);

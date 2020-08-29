@@ -10,13 +10,15 @@ import SignIn from "./components/signIn-and-signUp/signIn";
 import SignUp from "./components/signIn-and-signUp/signUp";
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import { selectCurrentUser } from "./redux/user/user.selector";
+
 import "./App.css";
 
 const App = () => {
   const dispatch = useDispatch();
   const stableDispatch = useCallback(dispatch, []);
 
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const currentUser = useSelector(selectCurrentUser);
 
   useEffect(() => {
     let unSubscribeFromAuth = null;
