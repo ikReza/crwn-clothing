@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
-// sessionStorage
+// localStorage
 import storage from "redux-persist/lib/storage";
 
 import { userReducer } from "./user/userReducer";

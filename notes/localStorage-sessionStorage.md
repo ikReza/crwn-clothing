@@ -19,3 +19,9 @@ If we refresh the page or close the tab and then open it again, we'll still be a
 If we want to remove ceratin item or clear everything from the local storage there are `removeItem` and `clear` method int the `window.localStorage` command.
 
 ![clear-storage](images/clear-storage.JPG)
+
+---
+
+## cookies vs local storage vs session storage
+
+![cookies-local-session](images/cookie-local-session.JPG)
