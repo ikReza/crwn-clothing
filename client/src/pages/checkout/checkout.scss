@@ -36,4 +36,16 @@
     font-size: x-large;
     font-weight: bolder;
   }
+
+  button {
+    margin-left: auto;
+    margin-top: 5vh;
+  }
+
+  .test-warning {
+    text-align: center;
+    margin-top: 5vh;
+    font-size: 24px;
+    color: red;
+  }
 }

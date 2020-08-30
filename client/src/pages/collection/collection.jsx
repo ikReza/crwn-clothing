@@ -7,7 +7,6 @@ import "./collection.scss";
 
 const CollectionPage = ({ match }) => {
   // console.log(match)
-  console.log(match);
   const collection = useSelector(selectCollection(match.params.categoryId));
   const { title, items } = collection;
 
