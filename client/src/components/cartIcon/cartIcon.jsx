@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import CustomButton from "../customButton/customButton";
-import CartItem from "../cart/cartItem";
+import CartItem from "../cartItem/cartItem";
 import {
   selectCartItems,
   selectCartItemsCount,
