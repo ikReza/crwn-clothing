@@ -62,7 +62,13 @@ const App = () => {
           path="/signup"
           render={() => (currentUser ? <Redirect to="/" /> : <SignUp />)}
         />
-        <Route exact path="/checkout" component={CheckoutPage} />
+        <Route
+          exact
+          path="/checkout"
+          render={() =>
+            currentUser ? <CheckoutPage /> : <Redirect to="/signin" />
+          }
+        />
       </Switch>
     </div>
   );
