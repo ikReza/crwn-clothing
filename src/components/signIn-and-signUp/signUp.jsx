@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { Grid, Typography, TextField, Paper } from "@material-ui/core";
+import { Grid, TextField } from "@material-ui/core";
 
 import CustomButton from "../customButton/customButton";
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 
-import { useStyles, SignIn, SignInLink } from "./signUp.styles";
+import {
+  ContainerGrid,
+  TypographyHint,
+  FormContainer,
+  Alternate,
+  ChoiceLink,
+} from "./signin-signup.styles";
 
 const SignUp = () => {
-  const classes = useStyles();
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,18 +45,13 @@ const SignUp = () => {
   };
 
   return (
-    <Grid container justify="center" className={classes.signUp}>
+    <ContainerGrid container>
       <Grid item xs={10} sm={6} md={4}>
         <form onSubmit={handleSubmit}>
-          <Paper elevation={5} className={classes.signUpContainer}>
-            <Typography
-              align="center"
-              variant="h4"
-              gutterBottom
-              className={classes.signUpHeader}
-            >
+          <FormContainer elevation={5}>
+            <TypographyHint align="center" variant="h4" gutterBottom>
               I don't have an account
-            </Typography>
+            </TypographyHint>
             <TextField
               fullWidth
               margin="dense"
@@ -94,16 +94,14 @@ const SignUp = () => {
             <CustomButton variant="outlined" fullWidth type="submit">
               Sign Up
             </CustomButton>
-          </Paper>
-          <SignIn>
-            <Typography className={classes.signInHeader}>
-              Already have an account?
-            </Typography>
-            <SignInLink to="/signin">Sign In</SignInLink>
-          </SignIn>
+          </FormContainer>
+          <Alternate>
+            <TypographyHint>Already have an account?</TypographyHint>
+            <ChoiceLink to="/signin">Sign In</ChoiceLink>
+          </Alternate>
         </form>
       </Grid>
-    </Grid>
+    </ContainerGrid>
   );
 };
 

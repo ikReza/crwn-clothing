@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { Grid, Typography, TextField, Paper } from "@material-ui/core";
+import { Grid, TextField } from "@material-ui/core";
 
 import CustomButton from "../customButton/customButton";
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
-import { useStyles, SignUp, SignUpLink } from "./signin.styles";
+import {
+  ContainerGrid,
+  FormContainer,
+  TypographyHint,
+  Alternate,
+  ChoiceLink,
+} from "./signin-signup.styles";
 
 const SignIn = () => {
-  const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,18 +30,13 @@ const SignIn = () => {
   };
 
   return (
-    <Grid container justify="center" className={classes.signIn}>
+    <ContainerGrid container>
       <Grid item xs={12} sm={6} md={4}>
         <form onSubmit={handleSubmit}>
-          <Paper elevation={5} className={classes.signInContainer}>
-            <Typography
-              align="center"
-              variant="h4"
-              gutterBottom
-              className={classes.signInHeader}
-            >
+          <FormContainer elevation={5}>
+            <TypographyHint align="center" variant="h4" gutterBottom>
               I already have an account
-            </Typography>
+            </TypographyHint>
             <TextField
               fullWidth
               margin="dense"
@@ -64,20 +64,18 @@ const SignIn = () => {
               variant="outlined"
               fullWidth
               onClick={signInWithGoogle}
-              isGoogleSignIn
+              isgooglesignin="true"
             >
               Sign In with Google
             </CustomButton>
-          </Paper>
-          <SignUp>
-            <Typography className={classes.signUpHeader}>
-              Don't have an account?
-            </Typography>
-            <SignUpLink to="/signup">Sign Up</SignUpLink>
-          </SignUp>
+          </FormContainer>
+          <Alternate>
+            <TypographyHint>Don't have an account?</TypographyHint>
+            <ChoiceLink to="/signup">Sign Up</ChoiceLink>
+          </Alternate>
         </form>
       </Grid>
-    </Grid>
+    </ContainerGrid>
   );
 };
 

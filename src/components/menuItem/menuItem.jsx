@@ -5,26 +5,28 @@ import { withRouter } from "react-router-dom";
 // https://reactjs.org/docs/higher-order-components.html
 
 import "./menuItem.scss";
+import {
+  MenuItemContainer,
+  Image,
+  Content,
+  Title,
+  Subtitle,
+} from "./menuItem.styles";
 
 const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }) => {
   return (
-    <div
-      className={`${size} menu-item`}
+    <MenuItemContainer
+      size={size}
       onClick={() => history.push(`${match.url}${linkUrl}`)}
     >
       {/* We want to increase the size of the image only. If we wrap this div around content div, 
       content will also increase. So to avoid that we're using this extra div */}
-      <div
-        className="background-img"
-        style={{
-          backgroundImage: `url(${imageUrl})`,
-        }}
-      />
-      <div className="content">
-        <h1 className="title">{title}</h1>
-        <span className="subtitle">Shop Now</span>
-      </div>
-    </div>
+      <Image imageUrl={imageUrl} />
+      <Content>
+        <Title>{title}</Title>
+        <Subtitle>Shop Now</Subtitle>
+      </Content>
+    </MenuItemContainer>
   );
 };
 
