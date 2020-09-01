@@ -10,7 +10,8 @@ import {
   selectIsCollectionFetching,
   selectIsCollectionsLoaded,
 } from "../../redux/shop/shop.selector";
-import { productCollections } from "../../redux/shop/shopActions";
+import { fetchCollectionsStart } from "../../redux/shop/shopActions";
+// import { productCollections } from "../../redux/shop/shopActions";
 
 const ShopPage = ({ match }) => {
   const isFetching = useSelector(selectIsCollectionFetching);
@@ -20,7 +21,7 @@ const ShopPage = ({ match }) => {
   const stableDispatch = useCallback(dispatch, []);
 
   useEffect(() => {
-    stableDispatch(productCollections());
+    stableDispatch(fetchCollectionsStart());
     return () => {};
   }, [stableDispatch]);
 

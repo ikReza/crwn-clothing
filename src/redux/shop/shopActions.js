@@ -4,24 +4,32 @@ import {
   convertCollectionsSnapshotToMap,
 } from "../../firebase/firebase.utils";
 
-export const productCollections = () => async (dispatch) => {
+export const fetchCollectionsStart = () => ({
+  type: actions.FETCH_COLLECTION_REQUEST,
+});
+
+export const fetchCollectionsSuccess = (collectionsMap) => ({
+  type: actions.FETCH_COLLECTION_SUCCESS,
+  payload: collectionsMap,
+});
+
+export const fetchCollectionsFailure = (errorMessage) => ({
+  type: actions.FETCH_COLLECTION_FAIL,
+  payload: errorMessage,
+});
+
+export const fetchCollectionsStartAsync = () => (dispatch) => {
   const collectionRef = firestore.collection("collections");
-  dispatch({ type: actions.FETCH_COLLECTION_REQUEST });
+  dispatch(fetchCollectionsStart());
 
   collectionRef
     .get()
     .then((snapshot) => {
       const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
 
-      dispatch({
-        type: actions.FETCH_COLLECTION_SUCCESS,
-        payload: collectionsMap,
-      });
+      dispatch(fetchCollectionsSuccess(collectionsMap));
     })
     .catch((error) => {
-      dispatch({
-        type: actions.FETCH_COLLECTION_FAIL,
-        payload: error.message,
-      });
+      dispatch(fetchCollectionsFailure(error.message));
     });
 };
