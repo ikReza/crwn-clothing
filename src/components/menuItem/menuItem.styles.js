@@ -19,8 +19,8 @@ export const Content = styled.div`
 `;
 
 export const MenuItemContainer = styled.div`
-min-width: 30%;
-height: ${({ size }) => (size ? "380px" : "240px")};
+  min-width: 30%;
+  height: ${({ size }) => (size ? "380px" : "240px")};
   border: 1px solid black;
   ${flexCenter};
   margin: 0 7.5px 15px;
@@ -31,13 +31,18 @@ height: ${({ size }) => (size ? "380px" : "240px")};
     cursor: pointer;
 
     & img {
-        transform: scale(1.1);
-        transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);    
+      transform: scale(1.1);
+      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
     }
 
     & ${Content} {
-        opacity: 0.9;
+      opacity: 0.9;
     }
+  }
+
+  @media (max-width: 600px) {
+    height: 240px;
+  }
 `;
 // cubic bezier doc: https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function
 

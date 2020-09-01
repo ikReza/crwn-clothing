@@ -16,14 +16,31 @@ export const Hero = styled.div`
     background-position: center;
     background-repeat: no-repeat;
     background-blend-mode: multiply;
+  }
+
+  @media (max-width: 600px) {
+    padding: 100px 20px;
+  }
 `;
 
 export const PrimaryTitle = styled.div`
   font-size: 4rem;
   font-weight: bolder;
   text-transform: uppercase;
+
+  @media (max-width: 600px) {
+    font-size: 3rem;
+  }
+
+  @media (max-width: 360px) {
+    font-size: 2rem;
+  }
 `;
 
 export const SecondaryTitle = styled.p`
   font-size: 1.1rem;
+
+  @media (max-width: 360px) {
+    font-size: 1rem;
+  }
 `;

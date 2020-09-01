@@ -1,34 +1,27 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import { Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import CollectionOverview from "../../components/collectionOverview/collectionOverview";
 import CollectionPage from "../collection/collection";
-import {
-  firestore,
-  convertCollectionsSnapshotToMap,
-} from "../../firebase/firebase.utils";
-import { updateCollections } from "../../redux/shop/shopActions";
+
 import Loading from "../../components/loading/loading";
+import {
+  selectIsCollectionFetching,
+  selectIsCollectionsLoaded,
+} from "../../redux/shop/shop.selector";
+import { productCollections } from "../../redux/shop/shopActions";
 
 const ShopPage = ({ match }) => {
-  const [loading, setLoading] = useState(true);
+  const isFetching = useSelector(selectIsCollectionFetching);
+  const isCollectionsLoaded = useSelector(selectIsCollectionsLoaded);
+
   const dispatch = useDispatch();
   const stableDispatch = useCallback(dispatch, []);
 
   useEffect(() => {
-    let unsubscribeFromSnapshot = null;
-
-    const collectionRef = firestore.collection("collections");
-    unsubscribeFromSnapshot = collectionRef.onSnapshot(async (snapshot) => {
-      const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-      // console.log(collectionsMap);
-      stableDispatch(updateCollections(collectionsMap));
-      setLoading(false);
-    });
-    return () => {
-      unsubscribeFromSnapshot();
-    };
+    stableDispatch(productCollections());
+    return () => {};
   }, [stableDispatch]);
 
   return (
@@ -37,13 +30,13 @@ const ShopPage = ({ match }) => {
         exact
         path={`${match.path}`}
         render={(props) =>
-          loading ? <Loading /> : <CollectionOverview {...props} />
+          isFetching ? <Loading /> : <CollectionOverview {...props} />
         }
       />
       <Route
         path={`${match.path}/:categoryId`}
         render={(props) =>
-          loading ? <Loading /> : <CollectionPage {...props} />
+          !isCollectionsLoaded ? <Loading /> : <CollectionPage {...props} />
         }
       />
     </div>
