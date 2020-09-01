@@ -100,30 +100,36 @@ What I used to do using axios for creating new data - use `axios.post()`. Here, 
 ```js
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
-useEffect(() => {
-  let unSubscribeFromAuth = null;
+const App = () => {
+  const [currentUser, setCurrentUser] = useState(null);
 
-  unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-    if (userAuth) {
-      const userRef = await createUserProfileDocument(userAuth);
+  useEffect(() => {
+    let unSubscribeFromAuth = null;
 
-      userRef.onSnapshot((snapShot) => {
-        setCurrentUser({
-          id: snapShot.id,
-          ...snapShot.data(),
+    unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot((snapShot) => {
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data(),
+          });
         });
-      });
-    }
+      }
 
-    setCurrentUser(userAuth); // this is similar to - setCurrentUser(null)
-    // we want currentUser to be null after signing out
-  });
+      setCurrentUser(userAuth); // this is similar to - setCurrentUser(null)
+      // we want currentUser to be null after signing out
+    });
 
-  return () => {
-    // to prevent memory leakage
-    unSubscribeFromAuth();
-  };
-}, []);
+    return () => {
+      // to prevent memory leakage
+      unSubscribeFromAuth();
+    };
+  }, []);
+
+  return <div></div>;
+};
 ```
 
 Here, using `onSnapShot` we can access the database information in the fronend. We're not setting the `currentUser` before getting back the data from the store, that's why we're saying `wait` for some moment to finish fetching data using `await` keyword.
@@ -137,4 +143,66 @@ userRef.onSnapshot((snapShot) => {
     ...snapShot.data(),
   });
 });
+```
+
+later we'll move this `setCurrentUser` action in the redux, because we'll need `currentUser` property in multiple places.
+
+```js
+import { setCurrentUser } from "./redux/user/userActions";
+import { selectCurrentUser } from "./redux/user/user.selector";
+
+useEffect(() => {
+  let unSubscribeFromAuth = null;
+
+  unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    if (userAuth) {
+      const userRef = await createUserProfileDocument(userAuth);
+
+      userRef.onSnapshot((snapShot) => {
+        stableDispatch(
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data(),
+          })
+        );
+      });
+    }
+
+    stableDispatch(setCurrentUser(userAuth));
+  });
+  return () => {
+    unSubscribeFromAuth();
+  };
+}, [stableDispatch]);
+```
+
+`userActions.js` file:
+
+```js
+export const setCurrentUser = (user) => async (dispatch) => {
+  dispatch({
+    type: actions.SET_CURRENT_USER,
+    payload: user,
+  });
+};
+```
+
+`userReducers.js` file:
+
+```js
+const INITIAL_STATE = {
+  currentUser: null,
+};
+
+export const userReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case actions.SET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
+    default:
+      return state;
+  }
+};
 ```
