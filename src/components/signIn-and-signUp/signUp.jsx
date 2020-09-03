@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Grid, TextField } from "@material-ui/core";
+import { useDispatch } from "react-redux";
 
+import { signUpStart } from "../../redux/user/userActions";
 import CustomButton from "../customButton/customButton";
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 
 import {
   ContainerGrid,
@@ -18,6 +19,8 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -28,20 +31,7 @@ const SignUp = () => {
       return;
     }
 
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-
-      await createUserProfileDocument(user, { displayName });
-      setDisplayName("");
-      setEmail("");
-      setPassword("");
-      setRePassword("");
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(signUpStart({ displayName, email, password }));
   };
 
   return (

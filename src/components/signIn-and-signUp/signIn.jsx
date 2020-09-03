@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Grid, TextField } from "@material-ui/core";
+import { useDispatch } from "react-redux";
 
 import CustomButton from "../customButton/customButton";
-import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
 import {
   ContainerGrid,
@@ -11,22 +11,21 @@ import {
   Alternate,
   ChoiceLink,
 } from "./signin-signup.styles";
+import {
+  googleSignInStart,
+  emailSignInStart,
+} from "../../redux/user/userActions";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-
-      setEmail("");
-      setPassword("");
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(emailSignInStart({ email, password }));
   };
 
   return (
@@ -63,7 +62,7 @@ const SignIn = () => {
             <CustomButton
               variant="outlined"
               fullWidth
-              onClick={signInWithGoogle}
+              onClick={() => dispatch(googleSignInStart())}
               isgooglesignin="true"
             >
               Sign In with Google
