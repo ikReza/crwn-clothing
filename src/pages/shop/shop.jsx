@@ -1,9 +1,6 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
-import CollectionOverview from "../../components/collectionOverview/collectionOverview";
-import CollectionPage from "../collection/collection";
 
 import Loading from "../../components/loading/loading";
 import {
@@ -11,7 +8,11 @@ import {
   selectIsCollectionsLoaded,
 } from "../../redux/shop/shop.selector";
 import { fetchCollectionsStart } from "../../redux/shop/shopActions";
-// import { productCollections } from "../../redux/shop/shopActions";
+
+const CollectionOverview = lazy(() =>
+  import("../../components/collectionOverview/collectionOverview")
+);
+const CollectionPage = lazy(() => import("../collection/collection"));
 
 const ShopPage = ({ match }) => {
   const isFetching = useSelector(selectIsCollectionFetching);
@@ -27,19 +28,21 @@ const ShopPage = ({ match }) => {
 
   return (
     <div className="shop-page">
-      <Route
-        exact
-        path={`${match.path}`}
-        render={(props) =>
-          isFetching ? <Loading /> : <CollectionOverview {...props} />
-        }
-      />
-      <Route
-        path={`${match.path}/:categoryId`}
-        render={(props) =>
-          !isCollectionsLoaded ? <Loading /> : <CollectionPage {...props} />
-        }
-      />
+      <Suspense fallback={<Loading />}>
+        <Route
+          exact
+          path={`${match.path}`}
+          render={(props) =>
+            isFetching ? <Loading /> : <CollectionOverview {...props} />
+          }
+        />
+        <Route
+          path={`${match.path}/:categoryId`}
+          render={(props) =>
+            !isCollectionsLoaded ? <Loading /> : <CollectionPage {...props} />
+          }
+        />
+      </Suspense>
     </div>
   );
 };

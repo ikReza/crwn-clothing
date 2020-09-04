@@ -7,6 +7,7 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 // Read more about this React library special syntax here: https://facebook.github.io/create-react-app/docs/adding-images-fonts-and-files
 
 import CartIcon from "../cartIcon/cartIcon";
+
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { signOutStart } from "../../redux/user/userActions";
 
@@ -16,6 +17,7 @@ import {
   OptionContainer,
   OptionLink,
 } from "./header.styles";
+import Toggle from "./toggle";
 
 const Header = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -38,6 +40,7 @@ const Header = () => {
         )}
         <CartIcon />
       </OptionContainer>
+      <Toggle />
     </HeaderContainer>
   );
 };

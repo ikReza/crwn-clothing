@@ -30,7 +30,7 @@ const SignIn = () => {
 
   return (
     <ContainerGrid container>
-      <Grid item xs={12} sm={6} md={4}>
+      <Grid item xs={10} sm={6} md={4}>
         <form onSubmit={handleSubmit}>
           <FormContainer elevation={5}>
             <TypographyHint align="center" variant="h4" gutterBottom>

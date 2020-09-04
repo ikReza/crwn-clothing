@@ -40,7 +40,7 @@ export const MenuItemContainer = styled.div`
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 800px) {
     height: 240px;
   }
 `;

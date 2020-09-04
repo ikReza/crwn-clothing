@@ -4,7 +4,6 @@ import { withRouter } from "react-router-dom";
 // as an argument and returns a modified component.
 // https://reactjs.org/docs/higher-order-components.html
 
-import "./menuItem.scss";
 import {
   MenuItemContainer,
   Image,
